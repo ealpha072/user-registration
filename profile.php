@@ -4,6 +4,7 @@
         header('Location:index.html');
         exit;
     }
+
     $host = 'localhost';
     $user = 'root';
     $pass ='';
@@ -14,13 +15,14 @@
         exit('Failed to connect to MySQL:'.mysql_connect_errno());
     }
     $stmt = $con->prepare('SELECT password, email FROM accounts WHERE id = ?');
-// In this case we can use the account ID to get the account info.
-$stmt->bind_param('i', $_SESSION['id']);
-$stmt->execute();
-$stmt->bind_result($password, $email);
-$stmt->fetch();
-$stmt->close();
- ?>
+
+    // In this case we can use the account ID to get the account info.
+    $stmt->bind_param('i', $_SESSION['id']);
+    $stmt->execute();
+    $stmt->bind_result($password, $email);
+    $stmt->fetch();
+    $stmt->close();
+?>
  <!DOCTYPE html>
 <html>
     <head>
