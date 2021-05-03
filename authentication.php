@@ -9,10 +9,11 @@
     if(mysqli_connect_errno()){
         exit('Failed to connect to MySQL:'.mysql_connect_errno());
     }
+
     if (!isset($_POST['username'],$_POST['password'])) {
-        # code...
         exit('Please fill both username and password');
     }
+
     if ($stmt = $con->prepare('SELECT id,password FROM accounts WHERE username = ?')) {
         # code...
         $stmt->bind_param('s',$_POST['username']);
@@ -20,7 +21,6 @@
         $stmt->store_result();
 
         if ($stmt->num_rows >0) {
-            # code...
             $stmt->bind_result($id,$password);
             $stmt->fetch();
             if (password_verify($_POST['password'], $password)) {
@@ -36,9 +36,6 @@
         }else{
             echo "Incorrect username and/or password";
         }
-
         $stmt->close();
     }
-
-
  ?>
